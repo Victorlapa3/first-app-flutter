@@ -15,22 +15,45 @@ class Task extends StatefulWidget {
 
 class _TaskState extends State<Task> {
   int nivel = 0;
+  final _corSelecionadoNotifier = ValueNotifier<Color>(Colors.green);
+
+  @override
+  void dispose() {
+    _corSelecionadoNotifier.dispose();
+    super.dispose();
+  }
+
+  void _atualizarCor() {
+    int maxNivel = widget.dificuldade * 10;
+
+    if (nivel <= maxNivel / 3) {
+      _corSelecionadoNotifier.value = Colors.green;
+    } else if (nivel <= (2 * maxNivel) / 3) {
+      _corSelecionadoNotifier.value = Colors.orange;
+    } else {
+      _corSelecionadoNotifier.value = Colors.red;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Limite de progresso baseado na dificuldade (cada estrela equivale a 10 pontos)
     int maxNivel = widget.dificuldade * 10;
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colors.blue,
-            ),
-            height: 140,
+          ValueListenableBuilder(
+              valueListenable: _corSelecionadoNotifier,
+              builder: (context, Color corSelecionado, child) {
+                return Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: corSelecionado,
+                  ),
+                  height: 140,
+                );
+              }
           ),
           Column(
             children: [
@@ -87,6 +110,7 @@ class _TaskState extends State<Task> {
                           setState(() {
                             if (nivel < maxNivel) {
                               nivel++;
+                              _atualizarCor();
                             }
                           });
                         },
