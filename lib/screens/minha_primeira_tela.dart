@@ -12,7 +12,7 @@ class MyFirstWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,11 +85,11 @@ class MyFirstWidget extends StatelessWidget {
           ),
 // Retanguolo escrito: Exemplo
           Container(
-            margin: EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
             color: Colors.amber,
             height: 30,
             width: 300,
-            child: Text(
+            child: const Text(
               'Exemplo',
               style: TextStyle(
                 color: Colors.black,
@@ -101,9 +101,9 @@ class MyFirstWidget extends StatelessWidget {
 // Botão
           ElevatedButton(
             onPressed: () {
-              print('Você apertou o botão!');
+              // print('Você apertou o botão!');
             },
-            child: Text('Aperte o botão!'),
+            child: const Text('Aperte o botão!'),
           )
         ],
       ),
